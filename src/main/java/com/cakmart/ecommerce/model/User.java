@@ -1,6 +1,7 @@
 package com.cakmart.ecommerce.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.core.annotation.Order;
@@ -8,17 +9,13 @@ import org.springframework.core.annotation.Order;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "users")
 @Entity
+@Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +39,6 @@ public class User {
     private String updatedBy;
 
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Order> orders;
 }
