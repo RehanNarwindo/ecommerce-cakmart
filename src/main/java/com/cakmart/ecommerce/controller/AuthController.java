@@ -1,6 +1,7 @@
 package com.cakmart.ecommerce.controller;
 
 import com.cakmart.ecommerce.dto.LoginRequest;
+import com.cakmart.ecommerce.dto.LoginResponse;
 import com.cakmart.ecommerce.dto.RegisterRequest;
 import com.cakmart.ecommerce.dto.RegisterResponse;
 import com.cakmart.ecommerce.service.AuthService;
@@ -17,9 +18,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        String token = authService.login(loginRequest);
-        return ResponseEntity.ok().body("Bearer " + token);
+        LoginResponse response = authService.login(loginRequest);
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){

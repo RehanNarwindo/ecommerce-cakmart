@@ -1,6 +1,7 @@
 package com.cakmart.ecommerce.service;
 
 import com.cakmart.ecommerce.dto.LoginRequest;
+import com.cakmart.ecommerce.dto.LoginResponse;
 import com.cakmart.ecommerce.dto.RegisterRequest;
 import com.cakmart.ecommerce.dto.RegisterResponse;
 import com.cakmart.ecommerce.model.User;
@@ -22,7 +23,7 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -31,7 +32,7 @@ public class AuthService {
         }
 
 
-        return jwtUtil.generateToken(user.getEmail());
+        return new LoginResponse(user.getUsername(), jwtUtil.generateToken(user.getUsername()), "Login berhasil");
     }
 
     public RegisterResponse register(RegisterRequest registerRequest) {
