@@ -2,6 +2,7 @@ package com.cakmart.ecommerce.controller;
 
 import com.cakmart.ecommerce.dto.LoginRequest;
 import com.cakmart.ecommerce.dto.RegisterRequest;
+import com.cakmart.ecommerce.dto.RegisterResponse;
 import com.cakmart.ecommerce.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest){
-        String token = authService.register(registerRequest);
-        return ResponseEntity.ok().body("Bearer " + token);
+        RegisterResponse response = authService.register(registerRequest);
+        System.out.println("Response :");
+        System.out.println(response);
+        return ResponseEntity.ok(response);
     }
 }

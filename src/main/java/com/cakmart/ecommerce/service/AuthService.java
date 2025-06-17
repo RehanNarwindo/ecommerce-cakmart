@@ -2,6 +2,7 @@ package com.cakmart.ecommerce.service;
 
 import com.cakmart.ecommerce.dto.LoginRequest;
 import com.cakmart.ecommerce.dto.RegisterRequest;
+import com.cakmart.ecommerce.dto.RegisterResponse;
 import com.cakmart.ecommerce.model.User;
 import com.cakmart.ecommerce.repository.UserRepository;
 import com.cakmart.ecommerce.security.JwtUtil;
@@ -33,7 +34,7 @@ public class AuthService {
         return jwtUtil.generateToken(user.getEmail());
     }
 
-    public String register(RegisterRequest registerRequest) {
+    public RegisterResponse register(RegisterRequest registerRequest) {
         if (userRepository.findByUsername(registerRequest.getUsername()).isPresent()) {
             throw new RuntimeException("Username sudah dipakai");
         }
@@ -50,7 +51,7 @@ public class AuthService {
 
         userRepository.save(newUser);
 
-        return jwtUtil.generateToken(newUser.getUsername());
+        return new RegisterResponse(newUser.getUsername(), newUser.getEmail(), "berhasil buat akun");
     }
 
 }
