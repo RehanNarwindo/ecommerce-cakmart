@@ -39,6 +39,8 @@ public class User {
     private String updatedBy;
 
 
+
+
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Order> orders;
 }
