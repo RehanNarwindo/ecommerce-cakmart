@@ -27,6 +27,8 @@ public class User {
 
     private String password;
 
+    private String role;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -37,6 +39,8 @@ public class User {
     private String createdBy;
 
     private String updatedBy;
+
+
 
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
