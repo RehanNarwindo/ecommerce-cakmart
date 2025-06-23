@@ -30,8 +30,6 @@ public class AuthService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
-
-
         return new LoginResponse(user.getUsername(), jwtUtil.generateToken(user.getUsername()), "Login berhasil");
     }
 
@@ -47,6 +45,7 @@ public class AuthService {
         newUser.setUsername(registerRequest.getUsername());
         newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         newUser.setEmail(registerRequest.getEmail());
+        newUser.setRole("user");
         newUser.setCreatedBy(registerRequest.getUsername());
         newUser.setUpdatedBy(registerRequest.getUsername());
 
