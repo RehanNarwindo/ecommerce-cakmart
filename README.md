@@ -12,7 +12,7 @@ This is my personal repository where I'm learning **Java** using **Spring Boot**
 - Java 17+
 - Spring Boot
 - Spring Data JPA
-- Maven / Gradle
+- Maven / GradleÂ
 - PostgreSQL / H2 Database
 - Postman (for API testing)
 - IntelliJ IDEA / VS Code
