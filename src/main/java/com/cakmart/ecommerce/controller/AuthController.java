@@ -9,6 +9,7 @@ import com.cakmart.ecommerce.repository.UserRepository;
 import com.cakmart.ecommerce.service.AuthService;
 import com.cakmart.ecommerce.validation.groups.ValidationSequence;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,23 +31,17 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest loginRequest) {
-        LoginResponse response = authService.login(loginRequest);
+    public ResponseEntity<LoginResponse> login(@RequestBody @Validated(ValidationSequence.class) @NotNull LoginRequest request) {
+        LoginResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Validated(ValidationSequence.class) RegisterRequest request) {
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole() != null ? request.getRole() : "user");
-        user.setCreatedBy(request.getCreated_by());
-        user.setUpdatedBy(request.getUpdated_by());
-
-        userRepository.save(user);
-        return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
+    public ResponseEntity<RegisterResponse> register(@RequestBody @Validated(ValidationSequence.class) RegisterRequest request) {
+        RegisterResponse response = authService.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
 }
+
