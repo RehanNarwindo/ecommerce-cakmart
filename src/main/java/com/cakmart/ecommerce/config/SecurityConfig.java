@@ -1,4 +1,4 @@
-package com.cakmart.ecommerce.config; // Ganti sesuai nama package kamu
+package com.cakmart.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

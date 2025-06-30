@@ -23,10 +23,10 @@ public class ProductController {
 
     // Get user by
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id){
+    public Product getProductById(@PathVariable Long id) {
         return productRepository.findById(id).orElse(null);
-    }
 
+    }
 
 
     @PostMapping
@@ -34,4 +34,27 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-}
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product productDetails){
+        Product product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return null;
+        }
+
+        product.setName(productDetails.getName());
+        product.setPrice(productDetails.getPrice());
+        product.setStock(productDetails.getStock());
+        product.setCostPrice(productDetails.getCostPrice());
+        product.setProductUrl(product.getProductUrl());
+        product.setExcerpt(product.getExcerpt());
+        product.setInternalNotes((product.getInternalNotes()));
+        product.setUpdatedAt(productDetails.getUpdatedAt());
+        product.setUpdatedBy(productDetails.getUpdatedBy());
+
+        return productRepository.save(product);
+    }
+
+
+    }
+
+
