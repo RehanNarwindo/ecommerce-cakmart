@@ -3,7 +3,9 @@ package com.cakmart.ecommerce.controller;
 
 import com.cakmart.ecommerce.model.User;
 import com.cakmart.ecommerce.repository.UserRepository;
+import com.cakmart.ecommerce.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Get All User
     @GetMapping
@@ -41,8 +46,12 @@ public class UserController {
 
         user.setUsername(userDetails.getUsername());
         user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword());
-        user.setUpdatedBy(userDetails.getUpdatedBy());
+
+        String encodedPassword = passwordEncoder.encode(userDetails.getPassword());
+        user.setPassword(encodedPassword);
+
+        String updatedBy = SecurityUtil.getCurrentUsername();
+        user.setUpdatedBy(updatedBy);
 
         return userRepository.save(user);
     }

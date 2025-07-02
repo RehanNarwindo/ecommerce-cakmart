@@ -8,11 +8,14 @@ import com.cakmart.ecommerce.model.User;
 import com.cakmart.ecommerce.repository.UserRepository;
 import com.cakmart.ecommerce.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -54,4 +57,8 @@ public class AuthService {
         return new RegisterResponse(newUser.getUsername(), newUser.getEmail(), "berhasil buat akun");
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }
